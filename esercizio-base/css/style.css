@@ -1,80 +1,176 @@
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-  }
- 
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+
+/* -------------- */
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+i {
+  font-size: 1.5rem;
+}
+.navbar {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 30vh;
+  padding: 0;
   
-  /* -------------- */
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+}
+.contNavLeft {
+  width: 45%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.contNavLeft > i {
+  padding-right: 2rem;
+  padding-top: 1rem;
+  color: #333;
+}
 
-  .contMain {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow-y: scroll;
-  }
+.contNavRight {
+  width: 55%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 
-  .ms_slider {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background-color: #fff;
-    overflow: hidden;
-  }
+.contNavRight > .innerNavSearch > input {
+  width: 450px;
+  margin-top: 1rem;
+}
+.contNavRight > .innerNavSearch > input:focus {
+  outline: none;
+}
+.contNavRight > .innerNavList > ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style-type: none;
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+.contNavRight > .innerNavList > ul > li {
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
 
-  #btnIndietro {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    transform: translate(-0%, -50%);
-    z-index: 100;
-    background-color: #ffffffac;
-    border-radius: 50%;
+.contMain {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: scroll;
+}
 
-  }
-  #btnAvanti {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translate(-0%, -50%);
-    z-index: 100;
-    background-color: #ffffffac;
-    border-radius: 50%;
+.ms_slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+}
 
-  }
-  #my-order-button {
-    position: absolute;
-    right: 5%;
-    top: 95%;
-    transform: translate(-0%, -50%);
-    z-index: 100;
-    background-color: #ffffffac;
-    border-radius: 2rem;
+#carouselContainer {
+  background-color: rgba(237, 167, 167, 0.618);
+}
 
-  }
-  #my-stop-button {
-    position: absolute;
-    right: 15%;
-    top: 95%;
-    transform: translate(-0%, -50%);
-    z-index: 100;
-    background-color: #ffffffac;
-    border-radius: 2rem;
+#btnIndietro {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translate(-0%, -50%);
+  z-index: 100;
+  background-color: #ffffff21;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
 
-  }
+}
+
+#btnAvanti {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translate(-0%, -50%);
+  z-index: 100;
+  background-color: #ffffff21;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+
+}
+.contButtons {
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  bottom: 5%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5%;
+  gap: 1rem;
+}
+#my-order-button {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff21;
+  border-radius: 2rem;
+  color: white;
+  border: none;
+
+}
+
+#my-stop-button {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff21;
+  border-radius: 2rem;
+  color: white;
+  border: none;
 
 
- 
+}
+#contIndexActive {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  z-index: 100;
+  background-color: #ffffff21;
+  border-radius: 2rem;
+  display: flex;
+  gap: 1rem;
+  padding: .5rem 1.5rem;
+
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+}

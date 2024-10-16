@@ -29,25 +29,14 @@ const images = [
 // Scorciatoia per prendere tutto dinamicamente
 const $one = document.getElementById.bind(document);
 
-const imgElems = [];
-
 // bottoni
 const btnAvanti = $one("btnAvanti");
 const btnIndietro = $one("btnIndietro");
 const btnStopStart = $one("my-stop-button");
 const btnInverti = $one("my-order-button");
-
-
-const contImages = $one('contImages');
+const contIndexActive = $one('contIndexActive');
 const carouselContainer = $one('carouselContainer');
-
 const divContainerGeneral = $one("divContainerGeneral");
-
-// Object.assign(contImages.style, {
-//   width: '100%',
-//   height: '100%',
-//   padding: '0 10%',
-// });
 
 //* -------------------------------
 //* ------- VARIABLES -------------
@@ -62,47 +51,51 @@ let startStop = false;
 
 const imgDisplay = document.createElement('img');
 imgDisplay.src = images[indexSlide].image;
-
-// imgDisplay.className = "main-image";
-// imgDisplay.style.width = '100%';
-// imgDisplay.style.height = '100%';
-// imgDisplay.style.objectFit = 'cover';
-
-
+imgDisplay.style.opacity = '.5';
 
 images.forEach((i, index) => {
 
   carouselContainer.append(imgDisplay);
   divContainerGeneral.append(carouselContainer);
 
-  // slider bottom
-  // const imgPrev = document.createElement('img');
-  // imgPrev.src = `${i.image}`;
-  // Object.assign(imgPrev.style, {
-  //   width: `calc(100% / ${images.length}`,
-  //   height: '100%',
-  //   objectFit: 'cover'
-  // });
-  // contImages.append(imgPrev);
+  // slider circle
+  const circleActive = document.createElement('span');
 
-
-
+  Object.assign(circleActive.style, {
+    display: 'flex',
+    width: '20px',
+    height: '20px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%',
+    backgroundColor: indexSlide === index ? 'blue' : 'white',
+  });
+  contIndexActive.append(circleActive);
 });
 
+function updateCircles() {
+  const circles = contIndexActive.querySelectorAll('span');
+  circles.forEach((circle, idx) => {
+    circle.style.backgroundColor = idx === indexSlide ? 'blue' : 'white';
+  });
+}
+
 btnAvanti.addEventListener('click', (e) => {
+  clearInterval(intervalID);
   e.preventDefault();
   e.stopPropagation();
-
   indexSlide < images.length - 1 ? indexSlide++ : indexSlide = 0;
   imgDisplay.src = images[indexSlide].image;
+  updateCircles();
 })
 
 btnIndietro.addEventListener('click', (e) => {
+  clearInterval(intervalID);
   e.preventDefault();
   e.stopPropagation();
-
   imgDisplay.src = images[indexSlide].image;
   indexSlide > 0 ? indexSlide-- : indexSlide = images.length - 1;
+  updateCircles();
 })
 
 function IntervalShow() {
@@ -124,6 +117,7 @@ function IntervalShow() {
           indexSlide--
           : indexSlide = images.length - 1
       )
+      updateCircles();
   }, 1000)
 };
 
@@ -139,10 +133,10 @@ btnInverti.addEventListener('click', () => {
 btnStopStart.addEventListener('click', () => {
   startStop = !startStop;
   startStop ?
-  (
-    clearInterval(intervalID)
-  ) : (
-    IntervalShow()
-  )
+    (
+      clearInterval(intervalID)
+    ) : (
+      IntervalShow()
+    )
 })
 
