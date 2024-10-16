@@ -1,143 +1,148 @@
 const images = [
   {
-    image : "./img/01.webp",
-    title : "Marvel's Spiderman Miles Morale",
-    text  : "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.",
+    image: "https://static.zara.net/assets/public/0ed3/04d4/45604e84a924/2b672e0ece52/image-portrait-ipad-5462bdb3-2d84-4fd9-a492-48cb8fe5e1e7-default_0/image-portrait-ipad-5462bdb3-2d84-4fd9-a492-48cb8fe5e1e7-default_0.jpg?ts=1728650508350&w=1317&f=auto",
+    title: "Marvel's Spiderman Miles Morale",
+    text: "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.",
   },
   {
-    image : "./img/02.webp",
-    title : "Ratchet & Clank: Rift Apart",
-    text  : "Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.",
+    image: "https://static.zara.net/assets/public/a11b/7685/9f2c4a6ebfaa/1bbe7e8df219/image-portrait-ipad-cbe6f485-41e8-4be7-b185-bea93882231b-default_0/image-portrait-ipad-cbe6f485-41e8-4be7-b185-bea93882231b-default_0.jpg?ts=1728459025119&w=1317&f=auto",
+    title: "Ratchet & Clank: Rift Apart",
+    text: "Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.",
   },
   {
-    image : "./img/03.webp",
-    title : "Fortnite",
-    text  : "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
+    image: "https://static.zara.net/assets/public/97cb/268b/d1464a25a8fb/371b22b62bc0/06318221704-p/06318221704-p.jpg?ts=1728633764147&w=1317&f=auto",
+    title: "Fortnite",
+    text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
   },
   {
-    image : "./img/04.webp",
-    title : "Stray",
-    text  : "Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city",
+    image: "https://static.zara.net/assets/public/d112/0dd7/250f412e844d/2d5ed86a17ee/image-portrait-ipad-c2fcd5f7-7103-4ec7-8d90-ee59f4bf2a12-default_0/image-portrait-ipad-c2fcd5f7-7103-4ec7-8d90-ee59f4bf2a12-default_0.jpg?ts=1728919237267&w=1317&f=auto",
+    title: "Stray",
+    text: "Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city",
   },
   {
-    image : "./img/05.webp",
-    title : "Marvel's Avengers",
-    text  : "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
+    image: "https://static.zara.net/assets/public/c3cd/6482/de2e4068a39e/a0393b5f90ee/image-portrait-ipad-d9b89599-3a2f-4dd9-ac53-212c3e5397c2-default_0/image-portrait-ipad-d9b89599-3a2f-4dd9-ac53-212c3e5397c2-default_0.jpg?ts=1728650284843&w=1317&f=auto",
+    title: "Marvel's Avengers",
+    text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
   },
 ];
 
-// scorciatoia per prendere tutto dinamicamente
+// Scorciatoia per prendere tutto dinamicamente
 const $one = document.getElementById.bind(document);
 
 const imgElems = [];
 
-// todo__________________________________________________
-// prendo i bottoni 
-const btnAvanti       = $one("btnAvanti");            
-const btnIndietro     = $one("btnIndietro");          
-// prendo il div per appendere
-const divContainerGeneral = $one("divContainerGeneral");   
-  console.log(divContainerGeneral);        
-// todo__________________________________________________
+// bottoni
+const btnAvanti = $one("btnAvanti");
+const btnIndietro = $one("btnIndietro");
+const btnStopStart = $one("my-stop-button");
+const btnInverti = $one("my-order-button");
 
-images.forEach(curImage => {
 
-// -------------------------------------------------------------
-  // conatiner all 
-  const containerAll        = document.createElement("div");
-  containerAll.className    = "my-carousel-item";     //! ACTIVE
+const contImages = $one('contImages');
+const carouselContainer = $one('carouselContainer');
 
-    divContainerGeneral.append(containerAll);
-    
-  // Immagini
-  const imgElem             = document.createElement("img");
-    imgElem.className       = "img-fluid";
-    imgElem.src             = `${curImage.image}`;
-    imgElem.alt             = `${curImage.title}`;
+const divContainerGeneral = $one("divContainerGeneral");
 
-    containerAll.append(imgElem);
+// Object.assign(contImages.style, {
+//   width: '100%',
+//   height: '100%',
+//   padding: '0 10%',
+// });
 
-    // container description
-    const containerTxt = document.createElement("div");
-      containerTxt.className = "item-description px-3";
-      containerAll.append(containerTxt)
+//* -------------------------------
+//* ------- VARIABLES -------------
+//* -------------------------------
+let intervalID = null;
+let indexSlide = 0;
+let indexInvert = true;
+let startStop = false;
+//* -------------------------------
+//* ------- /VARIABLES ------------
+//* -------------------------------
 
-    // titolo
-    const titoloElem        = document.createElement("h2");
-      titoloElem.innerText  = `${curImage.title}`;
+const imgDisplay = document.createElement('img');
+imgDisplay.src = images[indexSlide].image;
 
-      containerTxt.append(titoloElem);
+// imgDisplay.className = "main-image";
+// imgDisplay.style.width = '100%';
+// imgDisplay.style.height = '100%';
+// imgDisplay.style.objectFit = 'cover';
 
-    // paragrafo
-    const paraElem          = document.createElement("p");
-      paraElem.innerText    = `${curImage.text}`;
-      
-      containerTxt.append(paraElem);
 
-      imgElems.push(containerAll);
-// -------------------------------------------------------------
+
+images.forEach((i, index) => {
+
+  carouselContainer.append(imgDisplay);
+  divContainerGeneral.append(carouselContainer);
+
+  // slider bottom
+  // const imgPrev = document.createElement('img');
+  // imgPrev.src = `${i.image}`;
+  // Object.assign(imgPrev.style, {
+  //   width: `calc(100% / ${images.length}`,
+  //   height: '100%',
+  //   objectFit: 'cover'
+  // });
+  // contImages.append(imgPrev);
+
+
 
 });
 
-imgElems[0].classList.add("active");
+btnAvanti.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-let indexActive = 0;
+  indexSlide < images.length - 1 ? indexSlide++ : indexSlide = 0;
+  imgDisplay.src = images[indexSlide].image;
+})
 
+btnIndietro.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-setInterval(() => {
-  if (indexActive < images.length -1) {
+  imgDisplay.src = images[indexSlide].image;
+  indexSlide > 0 ? indexSlide-- : indexSlide = images.length - 1;
+})
 
-    imgElems[indexActive].classList.remove("active");
-    indexActive++
-    imgElems[indexActive].classList.add("active");
-  
-  } else {
-  
-    indexActive = 0;
-    
-    imgElems[imgElems.length - 1].classList.remove("active");
-    imgElems[indexActive].classList.add("active");
-  
-  }
-}, 2000);
-btnAvanti.addEventListener('click', () => {
+function IntervalShow() {
+  clearInterval(intervalID);
 
-if (indexActive < images.length -1) {
+  intervalID = setInterval(() => {
 
-  imgElems[indexActive].classList.remove("active");
-  indexActive++
-  imgElems[indexActive].classList.add("active");
+    indexInvert ?
+      (
+        imgDisplay.src = images[indexSlide].image,
+        indexSlide < images.length - 1
+          ?
+          indexSlide++
+          : indexSlide = 0
+      ) : (
+        imgDisplay.src = images[indexSlide].image,
+        indexSlide > 0
+          ?
+          indexSlide--
+          : indexSlide = images.length - 1
+      )
+  }, 1000)
+};
 
-} else {
-
-  indexActive = 0;
-  
-  imgElems[imgElems.length - 1].classList.remove("active");
-  imgElems[indexActive].classList.add("active");
-
+window.onload = () => {
+  IntervalShow();
 }
-});
 
-btnIndietro.addEventListener('click', () => {
+btnInverti.addEventListener('click', () => {
+  indexInvert = !indexInvert;
+  IntervalShow();
+})
 
-  if (indexActive > 0) {
-      imgElems[indexActive].classList.remove("active");
-      indexActive--;
-      imgElems[indexActive].classList.add("active");
-
-  } else {
-
-      indexActive = imgElems.length - 1;
-      imgElems[0].classList.remove("active");
-      imgElems[indexActive].classList.add("active");
-      
-  }
-});
-
-
-
-
-
-
-
+btnStopStart.addEventListener('click', () => {
+  startStop = !startStop;
+  startStop ?
+  (
+    clearInterval(intervalID)
+  ) : (
+    IntervalShow()
+  )
+})
 
